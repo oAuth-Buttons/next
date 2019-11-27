@@ -1,4 +1,4 @@
-# @oAuth-Buttons/next
+# @oauth-buttons/next
 
 The next generation of oauth-buttons.
 
