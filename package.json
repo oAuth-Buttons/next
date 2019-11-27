@@ -1,0 +1,46 @@
+{
+  "name": "oauth-buttons",
+  "version": "2.0.0-SNAPSHOT",
+  "description": "Easily usable design system for oauth login buttons.",
+  "main": "index.js",
+  "scripts": {
+    "build:runtime": "webpack",
+    "watch:runtime": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oAuth-Buttons/next.git"
+  },
+  "author": "oauth-buttons team (https://oauth-buttons.github.io/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/oAuth-Buttons/next/issues"
+  },
+  "homepage": "https://github.com/oAuth-Buttons/next#readme",
+  "devDependencies": {
+    "@babel/core": "^7.7.4",
+    "@babel/preset-env": "^7.7.4",
+    "@babel/preset-typescript": "^7.7.4",
+    "@types/node": "^12.12.11",
+    "@typescript-eslint/eslint-plugin": "^2.8.0",
+    "@typescript-eslint/parser": "^2.8.0",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.2.0",
+    "dotenv": "^8.2.0",
+    "eslint": "^6.6.0",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-loader": "^3.0.2",
+    "eslint-plugin-prettier": "^3.1.1",
+    "file-loader": "^5.0.2",
+    "fork-ts-checker-webpack-plugin": "^3.1.1",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "postcss-loader": "^3.0.0",
+    "postcss-safe-parser": "^4.0.1",
+    "prettier": "^1.19.1",
+    "style-loader": "^1.0.0",
+    "typescript": "^3.7.2",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
+  },
+  "dependencies": {}
+}
