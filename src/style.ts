@@ -44,7 +44,7 @@ function css(array: TemplateStringsArray, ...params: any[]): string {
   }, '');
 }
 
-const LogoStyle = ({ logo }: Service, isLightTheme: boolean) => css`
+export const LogoStyle = ({ logo }: Service, isLightTheme: boolean) => css`
   ${logo.type === 'svg' &&
     css`
       ${logo.useSymbolTable
@@ -61,7 +61,10 @@ const LogoStyle = ({ logo }: Service, isLightTheme: boolean) => css`
     `}
 `;
 
-const Button = ({ mainColor, subColor }: Service, isLightTheme: boolean) => css`
+export const Button = (
+  { mainColor, subColor }: Service,
+  isLightTheme: boolean,
+) => css`
   ${isLightTheme
     ? css`
         color: ${mainColor};

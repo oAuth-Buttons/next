@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "title": "oauth-buttons Services Schema",
+  "required": ["colorTheme"],
+  "properties": {
+    "colorTheme": {
+      "type": "object",
+      "title": "Color Theme Palette",
+      "description": "The color palette for button design",
+      "required": ["main"],
+      "properties": {
+        "main": {
+          "type": "string",
+          "title": "Main Color",
+          "description": "The main color."
+        },
+        "sub": {
+          "type": "string",
+          "title": "Sub Main Color",
+          "description": "The sub-main color."
+        }
+      }
+    }
+  }
+}

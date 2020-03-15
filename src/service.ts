@@ -1,6 +1,6 @@
 /**
  * Logo type, at least 1 property should be not-null.
- * We'll lookup by following order:
+ * Logo should be looked up by following order:
  * svg sprite - svg - webfont - png
  */
 export interface Logo {
@@ -11,7 +11,7 @@ export interface Logo {
   /**
    * The URL of SVG.
    */
-  readonly svg?: URL;
+  readonly svg?: string;
   /**
    * The string that logo mapped.
    */
@@ -19,7 +19,7 @@ export interface Logo {
   /**
    * The URL of PNG.
    */
-  readonly png?: URL;
+  readonly png?: string;
 }
 
 /**
@@ -53,4 +53,25 @@ export interface Service {
    * Logo of service.
    */
   readonly logo: Logo;
+}
+
+export function evaluateLogoType(
+  logo: Logo | Service,
+): 'svg-sprite' | 'svg' | 'webfont' | 'png' {
+  if ('logo' in logo) {
+    return evaluateLogoType(logo.logo);
+  }
+  if ('svgSprite' in logo) {
+    return 'svg-sprite';
+  }
+  if ('svg' in logo) {
+    return 'svg';
+  }
+  if ('webfont' in logo) {
+    return 'webfont';
+  }
+  if ('png' in logo) {
+    return 'png';
+  }
+  throw new Error('Invalid logo provided');
 }

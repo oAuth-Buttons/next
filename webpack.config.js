@@ -40,10 +40,9 @@ module.exports = function(webpackEnv) {
       base,
       build: path.resolve(base, 'build/'),
       src: path.resolve(base, 'src/'),
+      services: path.resolve(base, 'services/'),
     };
   })();
-
-  console.log(paths.src);
 
   return {
     mode: env.isProduction ? 'production' : 'development',
@@ -127,7 +126,7 @@ module.exports = function(webpackEnv) {
       ],
     },
     resolve: {
-      extensions: ['.ts'],
+      extensions: ['.ts', '.svg', '.json'],
     },
     module: {
       strictExportPresence: true,
@@ -138,39 +137,24 @@ module.exports = function(webpackEnv) {
         // First, run the linter.
         // It's important to do this before Babel processes the JS.
         {
-          test: /\.[tj]s$/,
+          test: /\.ts$/,
           enforce: 'pre',
           use: [
             {
               loader: require.resolve('eslint-loader'),
             },
           ],
-          include: paths.appSrc,
+          include: paths.src,
         },
         {
           // "oneOf" will traverse all following loaders until one will
           // match the requirements. When no loader matches it will fall
           // back to the "file" loader at the end of the loader list.
           oneOf: [
-            // Process application JS with Babel.
-            // The preset includes JSX, Flow, TypeScript, and some ESnext features.
             {
-              test: /\.[tj]s$/,
+              test: /\.ts$/,
               include: paths.src,
-              use: [
-                {
-                  loader: require.resolve('babel-loader'),
-                  options: {
-                    // This is a feature of `babel-loader` for webpack (not Babel itself).
-                    // It enables caching results in ./node_modules/.cache/babel-loader/
-                    // directory for faster rebuilds.
-                    cacheDirectory: true,
-                    cacheCompression: env.isProduction,
-                    compact: env.isProduction,
-                  },
-                },
-              ],
-              // loader: require.resolve('babel-loader'),
+              loader: require.resolve('ts-loader'),
             },
             // "postcss" loader applies autoprefixer to our CSS.
             // "css" loader resolves paths in CSS and adds assets as dependencies.
@@ -220,6 +204,26 @@ module.exports = function(webpackEnv) {
               // See https://github.com/webpack/webpack/issues/6571
               sideEffects: true,
             },
+            {
+              test: /\.svg$/,
+              use: [
+                {
+                  loader: 'file-loader',
+                  options: {
+                    publicPath: 'build',
+                  },
+                } /* 
+                {
+                  loader: 'image-webpack-loader',
+                },
+                {
+                  loader: 'svg-sprite-loader',
+                },
+                {
+                  loader: 'webfonts-loader',
+                }, */,
+              ],
+            },
             // "file" loader makes sure those assets get served by WebpackDevServer.
             // When you `import` an asset, you get its (virtual) filename.
             // In production, they would get copied to the `build` folder.
@@ -231,9 +235,9 @@ module.exports = function(webpackEnv) {
               // its runtime that would otherwise be processed through "file" loader.
               // Also exclude `html` and `json` extensions so they get processed
               // by webpacks internal loaders.
-              exclude: [/\.(js|mjs||ts)$/, /\.html$/, /\.json$/],
+              exclude: [/\.(js|mjs|ts)$/, /\.svg$/, /\.html$/, /\.json$/],
               options: {
-                name: 'static/media/[name].[ext]',
+                name: '[name].[ext]',
               },
             },
           ],
@@ -258,7 +262,7 @@ module.exports = function(webpackEnv) {
           devtoolModuleFilenameTemplate: isEnvProduction
             ? info =>
                 path
-                  .relative(paths.appSrc, info.absoluteResourcePath)
+                  .relative(paths.src, info.absoluteResourcePath)
                   .replace(/\\/g, '/')
             : isEnvDevelopment &&
               (info =>

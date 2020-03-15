@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "title": "oauth-buttons Services Configuration Schema",
+  "required": ["use"],
+  "properties": {
+    "use": {
+      "type": "array",
+      "title": "Service to Use",
+      "description": "The services to use",
+      "items": {
+        "type": "string",
+        "title": "Item",
+        "examples": ["google", "github"],
+        "pattern": "^[a-z\\-]+$"
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "$schema": "../service.schema.json",
+
+  "colorTheme": {
+    "main": "#ea4335",
+    "__sub_comment": "auto generated with reduce 20% of saturation",
+    "sub": "#d3554a"
+  }
+}

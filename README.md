@@ -2,6 +2,10 @@
 
 The next generation of oauth-buttons.
 
+## Why This Exists
+
+For the consistency of login buttons.
+
 ## Goals & Philosophies
 
 - Easy
